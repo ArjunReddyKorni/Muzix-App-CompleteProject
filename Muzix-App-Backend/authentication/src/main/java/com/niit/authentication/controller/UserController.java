@@ -63,5 +63,15 @@ public class UserController {
         return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
     }
 
+    @PostMapping("/subscribe/{email}")
+    public ResponseEntity<?> subscriber(@PathVariable String email){
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(email);
+        msg.setSubject("Subscription Plans");
+        msg.setText("You have successfully subscriber.You will get Updates.");
+        javaMailSender.send(msg);
+        return new ResponseEntity<>("Message Send",HttpStatus.ACCEPTED);
+    }
+
 
 }
